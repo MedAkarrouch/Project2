@@ -56,19 +56,33 @@ Run:
 """
 
 from __future__ import annotations
-
-import argparse
-import csv
-import json
-import math
+from pathlib import Path
 import sys
-import time
+
+# -------------------------
+# Project imports (must come first to set up sys.path)
+# -------------------------
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+import numpy as np, argparse, csv, json, math, time
 from collections import defaultdict
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
-
-import numpy as np
+from pymongo import MongoClient
+from pymongo.collection import Collection
+from pymongo.errors import ServerSelectionTimeoutError
+from core.mesh import MeshLoader, Mesh, MeshNormalizer, Renderer
+from core.descriptors import (
+    LFDDescriptor,
+    LFDModelDescriptor,
+    LFDMetadata,
+    DepthBufferDescriptor,
+    DepthModelDescriptor,
+    DepthMetadata
+    )
+from core.similarity import SimilarityEngine
 
 import matplotlib
 matplotlib.use("Agg")
@@ -83,23 +97,12 @@ except Exception:
     sns = None  # type: ignore
     _HAS_SEABORN = False
 
-from pymongo import MongoClient
-from pymongo.collection import Collection
-from pymongo.errors import ServerSelectionTimeoutError
-
 # -------------------------
 # Project imports
 # -------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
-
-from core.mesh_loader import MeshLoader, Mesh
-from core.mesh_normalizer import MeshNormalizer
-from core.renderer import Renderer
-from core.lfd_descriptor import LFDDescriptor, LFDModelDescriptor, LFDMetadata
-from core.depth_buffer_descriptor import DepthBufferDescriptor, DepthModelDescriptor, DepthMetadata
-from core.similarity_engine import SimilarityEngine
 
 # -------------------------
 # Defaults / Paths
