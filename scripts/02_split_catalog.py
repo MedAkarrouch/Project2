@@ -53,7 +53,7 @@ def read_catalog(path: Path) -> List[Tuple[str, str]]:
     rows: List[Tuple[str, str]] = []
     with path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        if "filename" not in reader.fieldnames or "class" not in reader.fieldnames:
+        if not reader.fieldnames or "filename" not in reader.fieldnames or "class" not in reader.fieldnames:
             raise ValueError(f"Catalog must have headers: filename,class. Got: {reader.fieldnames}")
         for r in reader:
             fn = (r.get("filename") or "").strip()
