@@ -26,6 +26,18 @@ DATASET_URL = "https://www.ipet.gr/~akoutsou/benchmark/dataset/3DPotteryDataset_
 
 
 def _human_mb(n_bytes: int) -> str:
+    """
+    Convert a byte count into a human-readable size string (e.g. 1.2 MB).
+
+    Args:
+        n_bytes: The number of bytes to convert.
+
+    Returns:
+        A string like "1.2 MB".
+
+    Example:
+        >>> _human_mb(1234567) -> '1.2 MB'
+    """
     return f"{n_bytes / (1024 * 1024):.1f} MB"
 
 
@@ -34,7 +46,27 @@ def _project_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
 
-def download_file(url: str, out_path: Path, chunk_size: int = 1024 * 1024, timeout: int = 60) -> None:
+def download_file(
+    url: str,
+    out_path: Path,
+    chunk_size: int = 1024 * 1024, 
+    timeout: int = 60
+    ) -> None:
+    """
+    Downloads a file from a given URL to a local path.
+
+    Args:
+        url: The URL of the file to download.
+        out_path: The local path where the file will be saved.
+        chunk_size: The size of each chunk (in bytes) to write to disk.
+        timeout: The timeout (in seconds) for the HTTP request.
+
+    Returns:
+        None
+
+    Example:
+        >>> download_file("https://example.com/file.zip", Path("file.zip"))
+    """
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # If file already exists and looks non-empty, skip.
