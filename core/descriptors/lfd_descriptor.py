@@ -11,9 +11,9 @@ from skimage.transform import resize
 
 import mahotas  # <-- stable Zernike implementation
 
-from .mesh_loader import Mesh
-from .renderer import Renderer
-from .view_generator import CameraPose, ViewGenerator
+from ..mesh.mesh_loader import Mesh
+from ..mesh.renderer import Renderer
+from ..mesh.view_generator import CameraPose, ViewGenerator
 
 
 @dataclass(frozen=True)

@@ -6,8 +6,8 @@ from typing import Dict, List, Literal, Optional, Tuple, Union
 
 import numpy as np
 
-from .lfd_descriptor import LFDModelDescriptor
-from .depth_buffer_descriptor import DepthModelDescriptor
+from ..descriptors.lfd_descriptor import LFDModelDescriptor
+from ..descriptors.depth_buffer_descriptor import DepthModelDescriptor
 
 
 ModelDescriptor = Union[LFDModelDescriptor, DepthModelDescriptor]

@@ -5,7 +5,7 @@ from typing import Optional
 
 import numpy as np
 
-from core.mesh_loader import Mesh
+from ..mesh.mesh_loader import Mesh
 
 
 class MeshNormalizer:

@@ -1,18 +1,19 @@
 # core/__init__.py
-from .mesh_loader import Mesh, MeshLoader
-from .mesh_normalizer import MeshNormalizer
-from .renderer import Renderer
-from .view_generator import ViewGenerator, CameraPose
-from .lfd_descriptor import LFDDescriptor, LFDModelDescriptor, LFDMetadata
-from .depth_buffer_descriptor import DepthBufferDescriptor, DepthModelDescriptor, DepthMetadata
-from .similarity_engine import SimilarityEngine, SimilarityResult
+from .descriptors import (
+    DepthBufferDescriptor, DepthModelDescriptor, DepthMetadata,
+    LFDDescriptor, LFDModelDescriptor, LFDMetadata
+)
+from .mesh import (
+    Mesh, MeshLoader, MeshNormalizer, Renderer, ViewGenerator, CameraPose
+)
+from .similarity import SimilarityEngine, SimilarityResult
 
 __all__ = [
-    "Mesh", "MeshLoader",
-    "MeshNormalizer",
-    "Renderer",
-    "ViewGenerator", "CameraPose",
-    "LFDDescriptor", "LFDModelDescriptor", "LFDMetadata",
+    # Descriptors
     "DepthBufferDescriptor", "DepthModelDescriptor", "DepthMetadata",
+    "LFDDescriptor", "LFDModelDescriptor", "LFDMetadata",
+    # Mesh operations
+    "Mesh", "MeshLoader", "MeshNormalizer", "Renderer", "ViewGenerator", "CameraPose",
+    # Similarity
     "SimilarityEngine", "SimilarityResult",
 ]

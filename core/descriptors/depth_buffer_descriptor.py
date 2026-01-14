@@ -7,9 +7,9 @@ from typing import List, Literal
 import numpy as np
 from skimage.transform import resize
 
-from .mesh_loader import Mesh
-from .renderer import Renderer
-from .view_generator import ViewGenerator
+from ..mesh.mesh_loader import Mesh
+from ..mesh.renderer import Renderer
+from ..mesh.view_generator import ViewGenerator
 
 
 @dataclass(frozen=True)
