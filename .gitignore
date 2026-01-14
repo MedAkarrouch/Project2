@@ -1,3 +1,69 @@
+# Ignore data folder
 /data
+
+# Ignore output folder
 /out
-/core/__pycache__/
+
+# Ignore python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore IDE files
+*.iml
+*.ipynb
+.vscode
+.idea
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore virtual environment files
+.venv
+.env
+.eggs
+
+# Ignore log files
+*.log
+
+# Ignore build files
+build
+dist
+
+# Ignore Django files
+db.sqlite3
+db.sqlite3-journal
+local_settings.py
+
+# Ignore node_modules
+node_modules
+
+# Ignore other files
+*.swp
+*.swo
+*.git
+*.gitignore
+*.csv
+*.pdf
+*.docx
+*.doc
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.ico
+*.svg
+*.woff
+*.woff2
+*.eot
+*.ttf
+*.otf
+
