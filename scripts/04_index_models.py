@@ -46,12 +46,14 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from core.mesh_loader import MeshLoader, Mesh
-from core.mesh_normalizer import MeshNormalizer
-from core.renderer import Renderer
-from core.lfd_descriptor import LFDDescriptor
-from core.depth_buffer_descriptor import DepthBufferDescriptor
-
+from core import (
+    MeshLoader,
+    Mesh,
+    MeshNormalizer,
+    Renderer,
+    LFDDescriptor,
+    DepthBufferDescriptor,
+)
 
 # -------------------------
 # Paths / Defaults
@@ -164,7 +166,7 @@ def to_builtin(obj):
     if isinstance(obj, np.ndarray):
         return obj.tolist()
 
-    if is_dataclass(obj):
+    if is_dataclass(obj) and not isinstance(obj, type):
         return {k: to_builtin(v) for k, v in asdict(obj).items()}
 
     if isinstance(obj, dict):
