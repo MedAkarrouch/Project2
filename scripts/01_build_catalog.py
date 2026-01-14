@@ -27,7 +27,7 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 
 EXCLUDE_CLASSES = {"Other"}  # keep Abstract
@@ -39,7 +39,7 @@ def project_root() -> Path:
 
 
 def find_groundtruth_file(raw_dir: Path) -> Path:
-    candidates = list(raw_dir.rglob(GROUNDTRUTH_NAME))
+    candidates = list(raw_dir.glob(GROUNDTRUTH_NAME))
     if not candidates:
         raise FileNotFoundError(
             f"Could not find '{GROUNDTRUTH_NAME}' under: {raw_dir}\n"
