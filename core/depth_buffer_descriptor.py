@@ -112,7 +112,7 @@ class DepthBufferDescriptor:
         """
         # Always render the fixed DEPTH_42 viewpoints (42 directions).
         poses = self.view_generator.generate(preset="DEPTH_42", radius=self.view_radius)
-        directions = np.stack([p.direction for p in poses], axis=0).astype(np.float32)
+        directions = np.asarray(np.stack([p.direction for p in poses], axis=0), dtype=np.float32)
 
         depth_maps = self.renderer.render_views(
             mesh,
@@ -138,7 +138,7 @@ class DepthBufferDescriptor:
 
             feature_list.append(feat)
 
-        features = np.vstack(feature_list).astype(np.float32)
+        features = np.asarray(np.vstack(feature_list), dtype=np.float32)
 
         meta = DepthMetadata(
             preset="DEPTH_42",
@@ -170,13 +170,16 @@ class DepthBufferDescriptor:
 
         # Resize (keep range)
         if depth.shape != (self.image_size, self.image_size):
-            depth = resize(
-                depth,
-                (self.image_size, self.image_size),
-                order=1,  # bilinear
-                preserve_range=True,
-                anti_aliasing=True,
-            ).astype(np.float32)
+            depth = np.asarray(
+                resize(
+                    depth,
+                    (self.image_size, self.image_size),
+                    order=1,  # bilinear
+                    preserve_range=True,
+                    anti_aliasing=True,
+                ),
+                dtype=np.float32
+            )
 
         fg = depth > 0.0
         if int(fg.sum()) == 0:
@@ -249,7 +252,7 @@ class DepthBufferDescriptor:
         p90 = float(np.percentile(vals, 90.0))
 
         stats = np.array([mean, std, vmin, vmax, p10, p25, p50, p75, p90], dtype=np.float32)
-        return np.concatenate([depth_hist, grad_hist, stats], axis=0).astype(np.float32)
+        return np.asarray(np.concatenate([depth_hist, grad_hist, stats], axis=0), dtype=np.float32)
 
     def _empty_feature_vector(self) -> np.ndarray:
         dim = self.depth_hist_bins + self.grad_hist_bins + 9
@@ -263,4 +266,4 @@ class DepthBufferDescriptor:
         n = float(np.linalg.norm(v))
         if n <= self.l2_eps:
             return v
-        return (v / n).astype(np.float32)
+        return np.asarray(v / n, dtype=np.float32)
