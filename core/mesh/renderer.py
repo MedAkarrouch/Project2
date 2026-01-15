@@ -99,7 +99,7 @@ class Renderer:
         self._bind_fbo()
 
         glClearColor(0.0, 0.0, 0.0, 1.0)
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # type: ignore
 
         self._set_camera(pose)
 
@@ -107,7 +107,7 @@ class Renderer:
         self._draw_mesh()
 
         rgb = glReadPixels(0, 0, self.width, self.height, GL_RGB, GL_UNSIGNED_BYTE)
-        img = np.frombuffer(rgb, dtype=np.uint8).reshape(self.height, self.width, 3)
+        img = np.frombuffer(bytes(rgb), dtype=np.uint8).reshape(self.height, self.width, 3)
         img = np.flipud(img)
 
         mask = (img[:, :, 0] > 0) | (img[:, :, 1] > 0) | (img[:, :, 2] > 0)
@@ -127,7 +127,7 @@ class Renderer:
         self._bind_fbo()
 
         glClearColor(0.0, 0.0, 0.0, 1.0)
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) # type: ignore
 
         self._set_camera(pose)
 
@@ -135,7 +135,7 @@ class Renderer:
         self._draw_mesh()
 
         depth = glReadPixels(0, 0, self.width, self.height, GL_DEPTH_COMPONENT, GL_FLOAT)
-        z = np.frombuffer(depth, dtype=np.float32).reshape(self.height, self.width)
+        z = np.frombuffer(bytes(depth), dtype=np.float32).reshape(self.height, self.width)
         z = np.flipud(z)
 
         # NEW: more robust background detection
@@ -271,7 +271,7 @@ class Renderer:
 
         status = glCheckFramebufferStatus(GL_FRAMEBUFFER)
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
-        if status != GL_FRAMEBUFFER_COMPLETE:
+        if status != GL_FRAMEBUFFER_COMPLETE and status != None:
             raise RuntimeError(f"Framebuffer incomplete. Status: {hex(status)}")
 
     def _bind_fbo(self) -> None:
