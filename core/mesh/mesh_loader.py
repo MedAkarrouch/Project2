@@ -3,6 +3,11 @@ TODO:
 1. Class design & modularity : 
 - Since all methods are static, convert the class MeshLoader to a module-level function.
 - Add configuration class for loading option(skip validation, custom triangulation,..)
+
+2. Performance : 
+- Add support for parallel processing.
+- Use memory mapping for large files.
+- Implement streaming parsing for memory efficieny
 """
 
 
