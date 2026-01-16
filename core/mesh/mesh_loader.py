@@ -1,3 +1,16 @@
+"""
+TODO:
+1. Class design & modularity : 
+- Since all methods are static, convert the class MeshLoader to a module-level function.
+- Add configuration class for loading option(skip validation, custom triangulation,..)
+"""
+
+
+
+
+
+
+
 from __future__ import annotations
 
 from dataclasses import dataclass
